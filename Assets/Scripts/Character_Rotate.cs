@@ -1,6 +1,4 @@
 using UnityEngine;
-using Cysharp.Threading.Tasks;
-using System;
 
 [RequireComponent(typeof(Collider2D))]
 public class Character_Rotate : Character_Base

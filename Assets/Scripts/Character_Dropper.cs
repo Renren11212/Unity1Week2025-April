@@ -17,7 +17,7 @@ public class Character_Dropper : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponentInParent<Rigidbody2D>();
         if (rb == null)
         {
             Debug.LogError("Character_Dropper: Rigidbody2Dが見つかりません");
@@ -39,28 +39,23 @@ public class Character_Dropper : MonoBehaviour
 
     private void HandleDragEnded()
     {
+        delayCts?.Cancel();
         DelaySetDynamicAsync().Forget();
     }
 
     private async UniTaskVoid DelaySetDynamicAsync()
     {
-        // 既存の待機をキャンセル
         delayCts?.Cancel();
         delayCts = new CancellationTokenSource();
         
         try
         {
-            await UniTask.Delay
-            (
-                TimeSpan.FromSeconds(floatingTime), 
-                cancellationToken: delayCts.Token
-            );
-            
+            await UniTask.Delay(TimeSpan.FromSeconds(floatingTime), cancellationToken: delayCts.Token);
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
-        catch (OperationCanceledException) 
+        catch (OperationCanceledException)
         {
-            // キャンセル時は何もしない
+            // nothing
         }
     }
 }
