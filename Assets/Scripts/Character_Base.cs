@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Animations;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -8,10 +9,10 @@ public abstract class Character_Base : MonoBehaviour
     private Camera mainCamera;
 
     private event Action OnDragStarted;
-    public void AddOnDragStartedListener(Action listener) => listener += OnDragStarted;
+    public void AddOnDragStartedListener(Action listener) => OnDragStarted += listener;
 
     private event Action OnDragEnded;
-    public void AddOnDragEndedListener(Action listener) => listener += OnDragEnded;
+    public void AddOnDragEndedListener(Action listener) => OnDragEnded += listener;
 
     /// <summary>
     /// 初期化メソッド

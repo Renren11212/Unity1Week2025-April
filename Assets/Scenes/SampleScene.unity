@@ -692,7 +692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596793c77872a2e4aa07c3e4dd8500d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingTime: 3
 --- !u!61 &1343880604
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -751,6 +750,7 @@ GameObject:
   - component: {fileID: 1435362756}
   - component: {fileID: 1435362755}
   - component: {fileID: 1435362758}
+  - component: {fileID: 1435362759}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -911,6 +911,22 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &1435362759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435362754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297344cd82b037841a9f9f5727c7b46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initiators:
+  - {fileID: 438104969}
+  - {fileID: 1343880603}
+  floatingTime: 1
 --- !u!1 &1998480697
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,7 +976,6 @@ MonoBehaviour:
   scallingRange:
     maxScale: 110
     minScale: 50
-  maxDistance: 20
 --- !u!61 &1998480700
 BoxCollider2D:
   m_ObjectHideFlags: 0

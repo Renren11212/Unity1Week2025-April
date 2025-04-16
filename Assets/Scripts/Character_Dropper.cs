@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class Character_Dropper : MonoBehaviour
 {
@@ -10,14 +11,16 @@ public class Character_Dropper : MonoBehaviour
     [SerializeField, Header("空中待機時間")]
     private float floatingTime = 2f;
 
-    private Rigidbody2D parentRB;
+    private Rigidbody2D rb;
+
+    private CancellationTokenSource delayCts;
 
     private void Start()
     {
-        parentRB = GetComponentInParent<Rigidbody2D>();
-        if (parentRB == null)
+        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
         {
-            Debug.LogError("Character_Dropper: 親のRigidbody2Dが見つかりません");
+            Debug.LogError("Character_Dropper: Rigidbody2Dが見つかりません");
             return;
         }
 
@@ -30,18 +33,34 @@ public class Character_Dropper : MonoBehaviour
 
     private void HandleDragStarted()
     {
-
+        delayCts?.Cancel();
+        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     private void HandleDragEnded()
     {
-
+        DelaySetDynamicAsync().Forget();
     }
 
     private async UniTaskVoid DelaySetDynamicAsync()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(floatingTime));
-
-        parentRB.bodyType = RigidbodyType2D.Dynamic;
+        // 既存の待機をキャンセル
+        delayCts?.Cancel();
+        delayCts = new CancellationTokenSource();
+        
+        try
+        {
+            await UniTask.Delay
+            (
+                TimeSpan.FromSeconds(floatingTime), 
+                cancellationToken: delayCts.Token
+            );
+            
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+        catch (OperationCanceledException) 
+        {
+            // キャンセル時は何もしない
+        }
     }
 }
