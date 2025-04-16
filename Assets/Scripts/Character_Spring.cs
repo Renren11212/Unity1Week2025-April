@@ -8,7 +8,7 @@ public class Character_Spring : Character_Base
     [SerializeField, Header("バネ伸縮率(%)")]
     private ScallingRange scallingRange = new()
     {
-        maxScale = 110f,
+        maxScale = 150f,
         minScale = 50f
     };
 
