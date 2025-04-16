@@ -5,15 +5,15 @@ public class Character_Spring : Character_Base
 {
     private Vector3 defaultCharacterSize = new Vector3(0.03f, 0.03f, 0);
 
-    [SerializeField, Header("バネ伸縮率(%)")]
+    [SerializeField, Header("バネ伸縮率(倍)")]
     private ScallingRange scallingRange = new()
     {
-        maxScale = 150f,
-        minScale = 50f
+        maxScale = 1.5f,
+        minScale = 0.5f
     };
 
-    //[SerializeField, Header("基準ドラッグ距離")]
-    //private float maxDistance = 20f;
+    [SerializeField, Header("基準ドラッグ距離")]
+    private float maxDistance = 20f;
 
     // クリック開始位置
     private Vector3 startPos;
@@ -34,7 +34,15 @@ public class Character_Spring : Character_Base
     {
         float distance = startPos.y - mouseWorld.y;
 
-        //float scallingRate;
+        float scallingRate = (maxDistance - distance) / maxDistance;
+
+        scallingRate = Mathf.Clamp(scallingRate, scallingRange.minScale, scallingRange.maxScale);
+
+        transform.parent.localScale = new Vector3(
+            defaultCharacterSize.x, 
+            defaultCharacterSize.y * scallingRate,
+            defaultCharacterSize.z
+            );
     }
 
     protected override void OnDragEnd(Vector3 mouseWorld)

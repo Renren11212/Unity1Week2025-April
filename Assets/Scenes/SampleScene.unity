@@ -926,6 +926,7 @@ MonoBehaviour:
   initiators:
   - {fileID: 438104969}
   - {fileID: 1343880603}
+  - {fileID: 1998480699}
   floatingTime: 1
 --- !u!1 &1998480697
 GameObject:
@@ -974,8 +975,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scallingRange:
-    maxScale: 110
-    minScale: 50
+    maxScale: 1.5
+    minScale: 0.5
+  maxDistance: 20
 --- !u!61 &1998480700
 BoxCollider2D:
   m_ObjectHideFlags: 0
