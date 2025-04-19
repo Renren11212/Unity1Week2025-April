@@ -13,6 +13,7 @@ public class Character_Dropper : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    // キャンセルトークン
     private CancellationTokenSource delayCts;
 
     private void Start()

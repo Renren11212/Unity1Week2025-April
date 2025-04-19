@@ -17,10 +17,10 @@ public class Character_Rotate : Character_Base
     protected override void OnDragging(Vector3 mouseWorld)
     {
         // 現在のドラッグ距離
-        float distance = startPos.x - mouseWorld.x;
+        float deltaX = startPos.x - mouseWorld.x;
         
         // 距離を回転に変換
-        float rotate = distance / maxDistance * 360f;
+        float rotate = transform.parent.rotation.z + deltaX / maxDistance * 360f;
 
         // z軸に対して回転        
         transform.parent.rotation = Quaternion.Euler(0, 0, rotate);
