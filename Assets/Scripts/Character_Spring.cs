@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Character_Spring : Character_Base
 {
-    private Vector3 defaultCharacterSize = new Vector3(0.03f, 0.03f, 0);
+    private Vector3 defaultCharacterSize;
 
     [SerializeField, Header("バネ伸縮率(倍)")]
     private ScallingRange scallingRange = new()
@@ -28,6 +28,7 @@ public class Character_Spring : Character_Base
     protected override void OnDragStart(Vector3 mouseWorld)
     {
         startPos = mouseWorld;
+        defaultCharacterSize = transform.parent.localScale;
     }
 
     protected override void OnDragging(Vector3 mouseWorld)

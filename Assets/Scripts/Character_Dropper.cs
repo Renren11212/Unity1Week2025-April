@@ -24,6 +24,8 @@ public class Character_Dropper : MonoBehaviour
             return;
         }
 
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
         foreach (Character_Base initiator in initiators)
         {
             initiator.AddOnDragStartedListener(HandleDragStarted);
